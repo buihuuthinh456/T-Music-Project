@@ -40,8 +40,6 @@ const playingSongBeside = document.querySelector('.current-song-beside');
 const playingCdThumbBeside = document.querySelector('.cd-thumb-beside');
 const playingSongBesideName = document.querySelector('.current-song-beside-name');
 
-
-
 const MUSIC_STORAGE_KEY = 'MUSIC_PLAYER';
 const app = {
     currentIndex:0,
