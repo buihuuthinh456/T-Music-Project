@@ -53,6 +53,9 @@
     .payment-upload{
         display:none;
     }
+	.slider-container{
+        height:320px;
+    }
     /* Ẩn Footer Component */
     .policy-item:nth-child(1){
         display:none;
