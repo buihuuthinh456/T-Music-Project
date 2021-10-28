@@ -56,6 +56,10 @@
 	.slider-container{
         height:320px;
     }
+	.mySlider__img{
+        width:100%;
+        height:320px;
+    }
     /* Ẩn Footer Component */
     .policy-item:nth-child(1){
         display:none;
@@ -130,11 +134,11 @@
 
 
     .slider-container{
-        height:168px;
+        height:240px;
     }
     .mySlider__img{
         width:100%;
-        height:168px;
+        height:240px;
     }
     .sm-gutter{
         margin-left: 4px;
@@ -196,10 +200,24 @@
     .copyright-container .contact:nth-child(2){
         display: none;
     }
+	 .slider-container{
+        height:200px;
+    }
+    .mySlider__img{
+        width:100%;
+        height:200px;
+    }
 }
 @media (max-width:480px){
     /* Ẩn Footer Component */
     .login-register{
         display:none;
+    }
+	 .slider-container{
+        height:168px;
+    }
+    .mySlider__img{
+        width:100%;
+        height:168px;
     }
 }
