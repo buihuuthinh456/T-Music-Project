@@ -1,3 +1,4 @@
+
 #root{
     /* background-color: black; */
    
@@ -245,21 +246,28 @@
 }
 .mySlider {
     display:none;
+    position:relative;
+    animation: sliderRightToLeft ease-in 1s;
+}
+@keyframes sliderRightToLeft{
+    0%{
+        right:-50px;
+    }
+    100%{
+        right:0;
+    }
 }
 .mySlider.left{
     width:20%;
     filter:brightness(40%);
     opacity:0.8;
-    display:block;
-    
+    display:block;  
 }
 .mySlider.right{
     width:20%;
     filter:brightness(40%);
     opacity:0.8;
     display:block;
-  
-
 }
 .mySlider.center{
     flex:1;
@@ -268,9 +276,17 @@
     z-index: 1;
     display:block;
     cursor: pointer; 
+    animation: sliderRightToLeft ease-in 1s,
+    sliderCenter ease-in 1.3s;
 
-
-
+}
+@keyframes sliderCenter{
+    0%{
+        transform: scale(1);
+    }
+    100%{
+        transform: scale(1.1);
+    }
 }
 .mySlider__img{
     width:100%;
@@ -753,9 +769,9 @@
     text-transform: uppercase;
 }
 .playlist-playing-song{
-    margin-top: 32px;
+    margin-top: 8px;
     list-style: none;
-    max-height: 350px;
+    max-height: 400px;
     overflow-y: scroll;
     
 }
@@ -764,6 +780,7 @@
     display: flex;
     font-size: 1.8rem;
     text-transform: none;
+    cursor: pointer;
 }
 .playlist-playing-song-item.active{
     background-color: rgba(109,198,247,0.8);
@@ -806,7 +823,7 @@
 .current-song-details__lyrics{
     margin-top: 16px;
     font-size:1.6rem;
-    max-height: 350px;
+    max-height: 400px;
     overflow-y: scroll;
 }
 
@@ -989,7 +1006,7 @@
 .signup-form__email
 {
     font-size:1.6rem;
-    min-width: 130px;
+    min-width: 140px;
     display:flex;
     align-items: center;
     transform:translateY(-8px);
@@ -1020,7 +1037,7 @@
 .login-form__options,.signup-form__options{
     display:flex;
     justify-content: space-between;
-    padding-left: 130px;
+    padding-left: 140px;
 }
 .login-form__options-remember,.signup-form__options-agree
 {
@@ -1063,11 +1080,11 @@
 }
 .signup-summit{
     margin-top: 12px;
-    margin-left: 130px;
+    margin-left: 140px;
     border:none;
     color:#fff;
     background-color: var(--base-color);
-    padding: 11px 120px;
+    padding: 11px 152px;
     cursor: pointer;
     border-radius: 2px;
     text-transform: uppercase;

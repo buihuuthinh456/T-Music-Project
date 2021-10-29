@@ -25,6 +25,11 @@
     #content{
         margin-top: 12px;
     }
+    .ranklist-title{
+        margin-top: 16px;
+        text-align: center;
+        justify-content:center;
+    }
     .ranklist-bar__item{
         line-height: 32px;
     }
@@ -33,9 +38,6 @@
     }
     .music-content-item{
         display:flex !important;
-    }
-    .song-handle-btn__item:hover{
-        color:var(--color-icon);
     }
 
 }
@@ -84,11 +86,19 @@
     #content{
         margin-top: 12px;
     }
+    .ranklist-title{
+        margin-top: 16px;
+        text-align: center;
+        justify-content:center;
+    }
     .ranklist-bar__item{
         line-height: 32px;
     }
     .music-content-item{
         display:flex !important;
+    }
+    .song-handle-btn__item:hover{
+        color:var(--color-icon);
     }
 }
 
@@ -173,7 +183,6 @@
     .album-title{
         text-align: center;
     }
-    
 }
 
 @media (max-width:540px){
@@ -210,7 +219,10 @@
 }
 @media (max-width:480px){
     /* Ẩn Footer Component */
-    .login-register{
+    /* .login-register{
+        display:none;
+    } */
+    .login{
         display:none;
     }
 	 .slider-container{

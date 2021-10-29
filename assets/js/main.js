@@ -39,6 +39,37 @@ const progressVolumeValue = document.querySelector('.song-handle-volume__value')
 const playingSongBeside = document.querySelector('.current-song-beside');
 const playingCdThumbBeside = document.querySelector('.cd-thumb-beside');
 const playingSongBesideName = document.querySelector('.current-song-beside-name');
+// 
+const imgAlbumItem = document.querySelectorAll('.ablum-item__icon-overlay__box__btn');
+const rankBtn = document.querySelector('.ranklist-title__box-icon');
+const headerLogo = document.querySelector('.header-logo');
+
+let flag = 1;
+// Ngăn chặn hành vi scroll khi nhấn space
+window.addEventListener('keydown', function(e) {
+    if(e.keyCode == 32 && e.target == document.body) {
+      e.preventDefault();
+    }
+  });
+// Thêm chức năng bật tắt khi nhấn nút esc, space
+document.onkeyup = (e)=>{
+    if(e.keyCode === 32)
+    {
+        if(flag===0){
+            audio.pause();
+            flag=1;
+        }
+        else{
+            audio.play();
+            flag=0;
+
+        }
+    }
+    if(e.keyCode === 27)
+    {
+        modal.style.display = 'none';
+    }
+}
 
 const MUSIC_STORAGE_KEY = 'MUSIC_PLAYER';
 const app = {
@@ -438,27 +469,6 @@ const app = {
 }
 app.start();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Modal
 function showModalSignUp(){
     modal.style.display = 'flex';
@@ -486,6 +496,8 @@ function openHomeMusic(){
 }
 
 
+
+
 loginBtn.addEventListener('click',showModalLogin);
 signUpBtn.addEventListener('click',showModalSignUp);
 
@@ -504,10 +516,15 @@ modalSignUp.addEventListener('click',(e)=>e.stopPropagation());
 playMusicBtn.addEventListener('click',openPlayMusic);
 homeMusicBtn.addEventListener('click',openHomeMusic);
 
+imgAlbumItem.forEach((element)=>{
+    element.addEventListener('dblclick',openPlayMusic);
+})
+rankBtn.addEventListener('click',openPlayMusic);
+headerLogo.addEventListener('click',openHomeMusic);
 
 // Slider
         // Next/previous controls
-        autoShowSlides()
+        // autoShowSlides()
         function plusSlides(n) {
             slideIndex+=n;
             if(slideIndex<1){
@@ -526,30 +543,40 @@ homeMusicBtn.addEventListener('click',openHomeMusic);
 
           function showSlides(n) {
             slides.forEach((element)=>{
-                element.style.display="none"
-                element.classList.remove('center','left','right')
+                element.style.display="none";
+                element.classList.remove('center','left','right');
             })
             dots.forEach((element)=>{
-                element.classList.remove('active')
+                element.classList.remove('active');
             })
-            dots[n-1].classList.add('active')
-            slides[n].classList.add('center')
-            slides[n].style.display='block'
-            slides[n-1].classList.add('left')
-            slides[n-1].style.display='block'
-            slides[n+1].classList.add('right')
-            slides[n+1].style.display='block'
+            dots[n-1].classList.add('active');
+
+            slides[n].classList.add('center');
+            slides[n].style.display='block';
+
+            slides[n-1].classList.add('left');
+            slides[n-1].style.display='block';
+
+            slides[n+1].classList.add('right');
+            slides[n+1].style.display='block';
         }
-      function autoShowSlides(){
-            slideIndex++;
-            if(slideIndex<1){
-                slideIndex=slides.length-2
-            }
-            if(slideIndex>slides.length-2){
-                slideIndex=1;
-            }
-            showSlides(slideIndex);
-            setTimeout(autoShowSlides,5000);
-        }
+    //   function autoShowSlides(){
+    //         slideIndex++;
+    //         if(slideIndex<1){
+    //             slideIndex=slides.length-2
+    //         }
+    //         if(slideIndex>slides.length-2){
+    //             slideIndex=1;
+    //         }
+    //         showSlides(slideIndex);
+    //         setTimeout(autoShowSlides,5000);
+    //     }
+    const nextSliderBtn = document.querySelector('.btn-next');
+
+    function autoShowSlides(){
+        nextSliderBtn.click();
+    }
+        setInterval(autoShowSlides,10000);
+   
 
    
