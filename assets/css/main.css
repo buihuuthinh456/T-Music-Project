@@ -247,16 +247,9 @@
 .mySlider {
     display:none;
     position:relative;
-    animation: sliderRightToLeft ease-in 1s;
+    transition: transform  ease-out;
 }
-@keyframes sliderRightToLeft{
-    0%{
-        right:-50px;
-    }
-    100%{
-        right:0;
-    }
-}
+
 .mySlider.left{
     width:20%;
     filter:brightness(40%);
@@ -276,17 +269,6 @@
     z-index: 1;
     display:block;
     cursor: pointer; 
-    animation: sliderRightToLeft ease-in 1s,
-    sliderCenter ease-in 1.3s;
-
-}
-@keyframes sliderCenter{
-    0%{
-        transform: scale(1);
-    }
-    100%{
-        transform: scale(1.1);
-    }
 }
 .mySlider__img{
     width:100%;
@@ -297,6 +279,7 @@
 {
     margin:0 4px;
     top:50%;
+    border-radius: 50%;
     position: absolute;
     height:100px;
     width: 50px;
@@ -313,6 +296,12 @@
 .btn-next{
     right:0;
 }
+.btn-prev:hover,
+.btn-next:hover
+{
+    background-color:rgba(248, 240, 240, 0.8);
+}
+
 .slider-container:hover .btn-prev,
 .slider-container:hover .btn-next
 {

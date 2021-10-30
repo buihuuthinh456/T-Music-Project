@@ -1,6 +1,6 @@
-var slideIndex = 1;
-var slides = [...document.getElementsByClassName("mySlider")];
-var dots = [...document.getElementsByClassName("dot")];
+const sliderContainer = document.querySelector('.slider-container');
+const dotSlider = document.querySelector('.slider-dot')
+
 const loginBtn = document.querySelector('.login');
 const signUpBtn = document.querySelector('.register');
 const modal = document.getElementById('modal');
@@ -523,60 +523,236 @@ rankBtn.addEventListener('click',openPlayMusic);
 headerLogo.addEventListener('click',openHomeMusic);
 
 // Slider
-        // Next/previous controls
-        // autoShowSlides()
-        function plusSlides(n) {
-            slideIndex+=n;
-            if(slideIndex<1){
-                slideIndex=slides.length-2
-            }
-            if(slideIndex>slides.length-2){
-                slideIndex=1;
-            }
-            showSlides(slideIndex); 
+const slider = {
+    currentIndex:1,
+    listSliders:[
+        {
+            name: 'Yoona',
+            path:'./assets/img/Yoona.jpg',
+        },
+        {
+            name: 'Yoona',
+            path:'./assets/img/YNhi.jpg',
+        },
+        {
+            name: 'Yoona',
+            path:'./assets/img/Yurisa.jpg',
+        },
+        {
+            name: 'Yoona',
+            path:'./assets/img/IU.jpg',
+        },
+        {
+            name: 'Yoona',
+            path:'./assets/img/Dahuyn.jpg',
+        },
+    ],
+    render: function(){
+        const lengthSlider = this.listSliders.length -1;
+        // Render slider
+        let htmlsSlider = this.listSliders.map((sliderElement,index)=>{
+           if(index===0||index===lengthSlider){
+                if(index===0){
+                    return   `
+                    <div class="mySlider">
+                        <img src="${this.listSliders[lengthSlider].path}" alt="${this.listSliders[lengthSlider].name}" class="mySlider__img">
+                    </div>
+                    <div class="mySlider">
+                         <img src="${sliderElement.path}" alt="${sliderElement.name}" class="mySlider__img">
+                     </div>
+                             `
+                }
+                else{
+                    return   `
+                    <div class="mySlider">
+                         <img src="${sliderElement.path}" alt="${sliderElement.name}" class="mySlider__img">
+                     </div>
+                    <div class="mySlider">
+                        <img src="${this.listSliders[0].path}" alt="${this.listSliders[0].name}" class="mySlider__img">
+                    </div>
+                             `
+                }
+           }
+           else{
+               return   `
+              <div class="mySlider">
+                   <img src="${sliderElement.path}" alt="${sliderElement.name}" class="mySlider__img">
+               </div>
+                       `
+           }
+        });
+        htmlsSlider.push(`
+        <button class="btn-prev ti-angle-left" ></button>
+        <button class="btn-next  ti-angle-right" ></button>
+        `)
+        sliderContainer.innerHTML = htmlsSlider.join('');
+        // Render dot slider
+        let htmlsDotSlider = this.listSliders.map((sliderElement,index)=>{
+            return `<span class="dot" data-sliderindex='${index+1}'></span>`
+        })
+        dotSlider.innerHTML =  htmlsDotSlider.join('');
+        
+    },
+    showSlider:function(direction='right',jumpIndex=-99){
+        const mySlider = [...document.querySelectorAll('.mySlider')];
+        const myDot = [...document.querySelectorAll('.dot')];
+        if(jumpIndex>0){
+            this.currentIndex = Number(jumpIndex);
+            console.log(jumpIndex);
         }
+        myDot.forEach((element)=>{
+           element.classList.remove('center','left','right');
+        });
+       
+        mySlider[this.currentIndex].classList.add('center');
 
-        // Thumbnail image controls
-           function currentSlide(n) {
-            showSlides(slideIndex = n);
+        mySlider[this.currentIndex-1].classList.add('left');
+
+        mySlider[this.currentIndex+1].classList.add('right');
+        if(direction=='right'){
+            this.animationRight();
         }
-
-          function showSlides(n) {
-            slides.forEach((element)=>{
-                element.style.display="none";
-                element.classList.remove('center','left','right');
-            })
-            dots.forEach((element)=>{
-                element.classList.remove('active');
-            })
-            dots[n-1].classList.add('active');
-
-            slides[n].classList.add('center');
-            slides[n].style.display='block';
-
-            slides[n-1].classList.add('left');
-            slides[n-1].style.display='block';
-
-            slides[n+1].classList.add('right');
-            slides[n+1].style.display='block';
+        else if (direction=='left'){
+            this.animationLeft();
         }
-    //   function autoShowSlides(){
-    //         slideIndex++;
-    //         if(slideIndex<1){
-    //             slideIndex=slides.length-2
-    //         }
-    //         if(slideIndex>slides.length-2){
-    //             slideIndex=1;
-    //         }
-    //         showSlides(slideIndex);
-    //         setTimeout(autoShowSlides,5000);
-    //     }
-    const nextSliderBtn = document.querySelector('.btn-next');
-
-    function autoShowSlides(){
-        nextSliderBtn.click();
-    }
-        setInterval(autoShowSlides,10000);
-   
-
+        myDot[this.currentIndex-1].classList.add('active');
+        myDot.forEach((element)=>{
+            element.addEventListener('click',(e)=>{
+                this.render();
+                this.showSlider('right',e.target.dataset.sliderindex);
+                this.handleEvents();
+                clearInterval(sliderRun);
+                sliderRun = setInterval(slider.sliderStart.bind(slider),5000);
+            });
+        });
+    },
+    animationRight:function(){
+        const mySlider = [...document.querySelectorAll('.mySlider')];
+        const widthSlider = mySlider[this.currentIndex+1].offsetWidth;
+        const widthSliderCenter = mySlider[this.currentIndex].offsetWidth;
+        const distance = widthSliderCenter - Math.floor(widthSliderCenter*0.6) +widthSlider;
+        let animationCenter = mySlider[this.currentIndex].animate([
+            {   
+                transform: `scale(0.6,1) translateX(${distance}px)`,
+                filter:'brightness(40%)'
+            },
+            { 
+                transform: 'scale(1,1.1) translateX(0px)',
+                filter:'brightness(100%)',
+             }
+        ],{
+            duration:1200,
+        })
+        animationCenter.play();
+        let animationLeft = mySlider[this.currentIndex-1].animate([
+            {   
+                transform: `scale(1,1.1) translateX(${widthSlider}px)`,
+                filter:'brightness(100%)'
+            },
+            { 
+                transform: 'scale(0.8,1) translateX(0px)',
+                filter:'brightness(40%)',
+             }
+        ],{
+            duration:1000,
+        })
+        animationLeft.play();
+        let animationRight = mySlider[this.currentIndex+1].animate([
+            {   
+                transform: `translateX(${widthSlider}px)`,
+                filter:'brightness(100%)'
+            },
+            { 
+                transform: 'translateX(0px)',
+                filter:'brightness(40%)',
+             }
+        ],{
+            duration:1000,
+        })
+        animationRight.play();
+    },
+    animationLeft:function(){
+        const mySlider = [...document.querySelectorAll('.mySlider')];
+        const widthSlider = mySlider[this.currentIndex+1].offsetWidth;
+        const widthSliderCenter = mySlider[this.currentIndex].offsetWidth;
+        const distance = widthSliderCenter - Math.floor(widthSliderCenter*0.6) +widthSlider;
+        let animationCenter = mySlider[this.currentIndex].animate([
+            {   
+                transform: `scale(0.6,1) translateX(-${distance}px)`,
+                filter:'brightness(40%)'
+            },
+            { 
+                transform: 'scale(1,1.1) translateX(0px)',
+                filter:'brightness(100%)',
+             }
+        ],{
+            duration:1000,
+        })
+        animationCenter.play();
+        let animationLeft = mySlider[this.currentIndex-1].animate([
+            {   
+                transform: `scale(1,1.1) translateX(-${widthSlider}px)`,
+                filter:'brightness(100%)'
+            },
+            { 
+                transform: 'scale(0.8,1) translateX(0px)',
+                filter:'brightness(40%)',
+             }
+        ],{
+            duration:1000,
+        })
+        animationLeft.play();
+        let animationRight = mySlider[this.currentIndex+1].animate([
+            {   
+                transform: `translateX(-${widthSlider}px)`,
+                filter:'brightness(100%)'
+            },
+            { 
+                transform: 'translateX(0px)',
+                filter:'brightness(40%)',
+             }
+        ],{
+            duration:1000,
+        })
+        animationRight.play();
+    },
+    changeSlider:function(number){
+        const mySlider = [...document.querySelectorAll('.mySlider')];
+        this.currentIndex+=number;
+        if(this.currentIndex>mySlider.length-2){
+            this.currentIndex=1;
+        }
+        if(this.currentIndex<1){
+            this.currentIndex=mySlider.length-2;
+        }
+    },
+    handleEvents:function(){
+        const btnNext = document.querySelector('.btn-next');
+        const btnPrev = document.querySelector('.btn-prev');
+        btnNext.addEventListener('click',()=>{
+            this.changeSlider(1);
+            this.render();
+            this.showSlider();
+            this.handleEvents();
+            clearInterval(sliderRun);
+            sliderRun = setInterval(slider.sliderStart.bind(slider),5000);
+        })
+        btnPrev.addEventListener('click',()=>{
+            this.changeSlider(-1);
+            this.render();
+            this.showSlider('left');
+            this.handleEvents();
+            clearInterval(sliderRun);
+            sliderRun = setInterval(slider.sliderStart.bind(slider),5000);
+        })
+    },
+    sliderStart:function(){
+        this.changeSlider(1);
+        this.render();
+        this.showSlider();
+        this.handleEvents();
+    },
+}
+slider.sliderStart.bind(slider)();
+let sliderRun = setInterval(slider.sliderStart.bind(slider),5000);
    

@@ -219,9 +219,12 @@
 }
 @media (max-width:480px){
     /* Ẩn Footer Component */
-    /* .login-register{
+    .policy{
         display:none;
-    } */
+    }
+    .login-register{
+        display:none;
+    }
     .login{
         display:none;
     }
@@ -231,5 +234,31 @@
     .mySlider__img{
         width:100%;
         height:168px;
+    }
+}
+@media (max-width:350px){
+    /* Ẩn Footer Component */
+    .policy{
+        display:none;
+    }
+    .login-register{
+        display:none;
+    }
+    .login{
+        display:none;
+    }
+	 .slider-container{
+        height:168px;
+    }
+    .mySlider__img{
+        width:100%;
+        height:168px;
+    }
+    .copyright-container .contact:nth-child(3){
+        display: none;
+    }
+    .copyright-container{
+        flex:1;
+        justify-content:center;
     }
 }
