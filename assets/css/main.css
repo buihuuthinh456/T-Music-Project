@@ -930,7 +930,7 @@
     left:0;
     background-color:rgba(0,0,0,0.5);
     z-index: 50;
-    /* display:none; */
+    display:none;
     justify-content:center;
 }
 input.error{
@@ -948,7 +948,7 @@ input.error{
     padding:0;
     border-radius: 4px;
     overflow: hidden;
-    /* display:none; */
+    display:none; 
 }
 .login-header,.signup-header{
     padding:16px 12px;
