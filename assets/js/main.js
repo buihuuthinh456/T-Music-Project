@@ -495,9 +495,6 @@ function openHomeMusic(){
     playMusicContainer.style.display = 'none';
 }
 
-
-
-
 loginBtn.addEventListener('click',showModalLogin);
 signUpBtn.addEventListener('click',showModalSignUp);
 
@@ -531,20 +528,24 @@ const slider = {
             path:'./assets/img/Yoona.jpg',
         },
         {
-            name: 'Yoona',
+            name: 'YNhi',
             path:'./assets/img/YNhi.jpg',
         },
         {
-            name: 'Yoona',
+            name: 'Yurisa',
             path:'./assets/img/Yurisa.jpg',
         },
         {
-            name: 'Yoona',
+            name: 'IU',
             path:'./assets/img/IU.jpg',
         },
         {
-            name: 'Yoona',
+            name: 'Dahuyn',
             path:'./assets/img/Dahuyn.jpg',
+        },
+        {
+            name: 'TinhY',
+            path:'./assets/img/TinhY.jpg',
         },
     ],
     render: function(){
@@ -755,4 +756,5 @@ const slider = {
 }
 slider.sliderStart.bind(slider)();
 let sliderRun = setInterval(slider.sliderStart.bind(slider),5000);
-   
+
+
